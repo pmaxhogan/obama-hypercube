@@ -1,0 +1,160 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="apple-mobile-web-app-title" content="Obama Hypercube">
+
+  <title>Obama Hypercube</title>
+  <meta name="title" content="Obama Hypercube">
+  <meta name="description" content="Obama Hypercube">
+
+  <meta property="og:title" content="Obama Hypercube">
+  <meta property="og:description" content="Obama Hypercube">
+  <meta property="og:image" content="https://obama-hypercube.tk/obama.jpeg">
+
+  <meta name="twitter:card" content="summary_large_image">
+
+  <meta property="og:url" content="https://obama-hypercube.tk/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="icon" type="image/png" sizes="192x192" href="/lbama.jpeg">
+
+
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    div {
+      font-family: Impact, Haettenschweiler, "Franklin Gothic Bold", Charcoal, "Helvetica Inserat", "Bitstream Vera Sans Bold", "Arial Black", sans-serif;
+      color: black;
+      -webkit-text-fill-color: white;
+      font-size: min(7em, 70px);
+      -webkit-text-stroke: 0.03em black;
+      text-align: center;
+    }
+
+    a {
+      order: 3;
+      font-size: smaller;
+      margin-top: auto;
+    }
+  </style>
+
+
+</head>
+
+<body translate="no">
+<div>OBAMA HYPERCUBE</div>
+<a href="https://codepen.io/Mamboleoo/pen/MWyNZYr" target="_blank" rel="nofollow noreferrer">credit</a>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"></script>
+
+<script id="rendered-js">
+    console.clear();
+    const thisWidth = Math.min(window.innerWidth, 500);
+    const thisHeight = Math.min(window.innerHeight, 500);
+
+    var scene = new THREE.Scene();
+    var camera = new THREE.PerspectiveCamera(
+        75,
+        thisWidth / thisHeight,
+        0.1,
+        1000
+    );
+
+    var renderer = new THREE.WebGLRenderer({
+        antialias: true
+    });
+    renderer.setSize(thisWidth, thisHeight);
+    document.body.appendChild(renderer.domElement);
+    var group = new THREE.Group();
+
+    var light = new THREE.PointLight(0xffffff, 1.8, 80);
+    scene.add(light);
+
+    var spotLight = new THREE.SpotLight(0xffffff);
+    spotLight.position.set(0, 100, 0);
+    scene.add(spotLight);
+
+    var geometry = new THREE.CubeGeometry(30, 30, 30);
+    var texture = new THREE.TextureLoader().load("/obama.jpeg");
+    texture.wrapS = THREE.RepeatWrapping;
+    texture.wrapT = THREE.RepeatWrapping;
+    gsap.to(texture.offset, {
+        y: 1,
+        duration: 5,
+        repeat: -1,
+        ease: "none"
+    });
+    var material = new THREE.MeshStandardMaterial({
+        color: 0xffffff,
+        side: THREE.BackSide,
+        alphaTest: 0.6,
+        depthTest: true,
+        map: texture
+    });
+
+    for (let i = 0; i < 10; i++) {
+        var ball = new THREE.Mesh(geometry, material);
+        ball.scale.x = ((i + 1) / 5) * 1.5;
+        ball.scale.y = ((i + 1) / 5) * 1.5;
+        ball.scale.z = ((i + 1) / 5) * 1.5;
+        ball.rotation.x = i % 2 == 0 ? -Math.PI : 0;
+        ball.rotation.y = i % 2 == 0 ? -Math.PI : 0;
+        group.add(ball);
+    }
+    scene.add(group);
+
+    camera.position.z = 40;
+
+    gsap.to(group.rotation, {
+        y: Math.PI * 2,
+        duration: 100,
+        ease: "none",
+        repeat: -1
+    });
+    gsap.to(group.rotation, {
+        z: Math.PI * 2,
+        duration: 15,
+        ease: "power2.inOut",
+        yoyo: true,
+        repeat: -1
+    });
+    camera.position.z = 5;
+    gsap.to(camera.position, {
+        z: 60,
+        duration: 15,
+        ease: "power2.inOut",
+        repeat: -1,
+        yoyo: true
+    });
+
+    var animate = function () {
+        requestAnimationFrame(animate);
+
+        renderer.render(scene, camera);
+    };
+
+    window.addEventListener("resize", onWindowResize, false);
+
+    function onWindowResize() {
+
+        const thisWidth = Math.min(window.innerWidth, 500);
+        const thisHeight = Math.min(window.innerHeight, 500);
+        camera.aspect = thisWidth / thisHeight;
+        camera.updateProjectionMatrix();
+
+        renderer.setSize(thisWidth, thisHeight);
+    }
+
+    animate();
+</script>
+</body>
+</html>

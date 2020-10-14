@@ -1,0 +1,23 @@
+{
+  "hosting": {
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "redirects": [ {
+      "source": "/?!(bama.jpeg)",
+      "destination": "/",
+      "type": 301
+    }, {
+      "source": "/?",
+      "destination": "/",
+      "type": 301
+    }, {
+      "source": "/*/**",
+      "destination": "/",
+      "type": 301
+    }]
+  }
+}

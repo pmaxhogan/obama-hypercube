@@ -1,1 +1,1 @@
-# [Obama Hypercube](https://obamahypercube.tk)
+# [Obama Hypercube](https://obama-hypercube.web.app/)
